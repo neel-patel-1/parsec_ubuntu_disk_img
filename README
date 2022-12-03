@@ -1,0 +1,53 @@
+Scripts ++ Configuration files for Gem5 parsec disk image
+
+Paths in parsec/parsec.json result from combination of instructions from:
+
+https://www.gem5.org/documentation/gem5art/tutorials/parsec-tutorial
+and
+https://www.gem5.org/documentation/gem5art/tutorials/parsec-tutorial
+
+after cloning the parsec benchmark suite and packer run
+
+```
+./packer validate parsec/parsec.json
+```
+
+to check for any configuration errors, then:
+
+```
+./packer build parsec/parsec.json
+```
+Note: above had to be run as root to get KVM to start
+
+By the time the build is executed the directory structure should look similar to this:
+```
+$ tree -L 2              
+.                                                  
+├── configs                                        
+├── packer                                         
+├── packer_1.6.0_linux_amd64.zip                   
+├── packer_cache                                   
+│   ├── e94c06241a5e6ba0c4b9618ddcda39ba2ee27e9a.iso
+│   ├── e94c06241a5e6ba0c4b9618ddcda39ba2ee27e9a.iso.lock
+│   └── port                                       
+├── parsec 
+│   ├── parsec-benchmark
+│   ├── parsec-image
+│   ├── parsec-install.sh
+│   ├── parsec.json      
+│   ├── post-installation.sh
+│   └── runscript.sh
+├── README
+├── shared
+│   ├── preseed.cfg
+│   └── serial-getty@.service
+└── venv
+    ├── bin
+	    ├── lib
+		    └── pyvenv.cfg
+```
+
+also needed the stable linux kernel
+```
+wget --no-check-certificate http://dist.gem5.org/dist/v21-2/kernels/x86/static/vmlinux-4.19.83
+```
